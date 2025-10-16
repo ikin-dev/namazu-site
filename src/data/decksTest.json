@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Awesome new beginner Aya deck",
+        "character": "aya",
+        "desc": "Use this deck for practicing catfish oki and other combos. Recommended for people that want to deal great amounts of damage with Aya.Use this deck for practicing catfish oki and other combos. Recommended for people that want to deal great amounts of damage with Aya. Use this deck for practicing asdf",
+        "rating": { "upvotes": 1, "downvotes": 1 },
+        "creator": "tenko_vr",
+        "id": 1,
+        "cards": ["common_15", "common_15", "common_16", "common_16", "common_21", "common_21", "common_21", "common_21", "aya_01", "aya_01", "aya_01", "aya_01", "aya_02", "aya_03", "aya_03", "aya_13", "aya_14", "aya_17", "aya_17", "aya_17"],
+        "createdDate": "2025-09-23 09:50:02"
+    },
+        {
+        "title": "Remi, nya",
+        "character": "yuyuko",
+        "desc": "The best Remilia deck, nya",
+        "rating": { "upvotes": 1, "downvotes": 1 },
+        "creator": "tenko_vr",
+        "id": 2,
+        "cards": ["remilia_21", "remilia_21", "remilia_21", "remilia_21", "remilia_11", "remilia_11", "remilia_11", "remilia_11", "remilia_22", "remilia_22", "remilia_22", "remilia_22", "remilia_17", "remilia_17", "remilia_17", "remilia_18", "remilia_18", "remilia_18", "remilia_18", "remilia_17"],
+        "createdDate": "2025-09-23 09:50:02"
+    }
+]
