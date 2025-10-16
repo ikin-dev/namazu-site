@@ -43,13 +43,14 @@ export default function Deck({ title, character, desc, rating, creator, id, card
                 rounded-lg w-full text-sm
                 transition-all duration-300
                 hover:border-blue-500 hover:brightness-110
+                group
             "
         >
             {/* Header */}
             <div className="flex flex-col">
                 <div className="relative p-3 h-8 w-full flex flex-row rounded-t-lg justify-between items-center gap-4 text-white border-neutral-700 bg-">
                     <div
-                        className="absolute inset-0 opacity-25 rounded-t-lg"
+                        className="absolute inset-0 opacity-25 group-hover:opacity-50 duration-300 rounded-t-lg"
                         style={{
                             backgroundImage: `url(${CHARACTER_IMAGES[character] || null})`,
                             backgroundSize: '70%',
@@ -57,7 +58,7 @@ export default function Deck({ title, character, desc, rating, creator, id, card
                             backgroundRepeat: 'no-repeat'
                         }}
                     />
-                    <span className="relative z-10 font-semibold text-neutral-100 drop-shadow-lg">{characters[character.toLowerCase()] || character}</span>
+                    <span className="relative z-10 text-neutral-50 drop-shadow-lg opacity-50 duration-300 group-hover:opacity-100 ">{characters[character.toLowerCase()] || character}</span>
                     {isNew && (
                         <span className='bg-red-500 rounded-lg px-1 py-0.5 mt-1 font-bold'>New</span>
                     )}
@@ -75,7 +76,7 @@ export default function Deck({ title, character, desc, rating, creator, id, card
             </div>
 
             {/* Description + Cards */}
-            <div className="p-3 border-t border-neutral-700 w-full flex flex-col sm:flex-row gap-4 flex-1">
+            <div className="p-3 pt-4 border-t border-neutral-700 w-full flex flex-col sm:flex-row gap-4 flex-1">
                 <div className="flex-1 min-w-0 max-w-55">
                     <Description desc={desc} />
                 </div>
