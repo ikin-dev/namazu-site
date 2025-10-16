@@ -4,7 +4,7 @@ export default function Header() {
     return (
         <div className="text-neutral-200 w-full p-5 
                  bg-neutral-800/20 border-b-1 border-0 border-neutral-700/25">
-            <div className="max-w-6xl mx-auto flex lg:flex-row lg:justify-between lg:items-center flex-col p-5 gap-1">
+            <div className="max-w-6xl mx-auto flex md:flex-row md:justify-between md:items-center flex-col p-5 gap-1">
                 <div className='flex flex-col'>
                     <div className='flex flex-row items-center'>
                         <CardIcon className='fill-neutral-200 w-12 h-12 mr-3' />

@@ -43,7 +43,7 @@ export default function Deck({ title, character, desc, rating, creator, id, card
                 rounded-lg w-full text-sm
                 transition-all duration-300
                 hover:border-blue-500 hover:brightness-110
-                group
+                group drop-shadow-md
             "
         >
             {/* Header */}
@@ -77,7 +77,7 @@ export default function Deck({ title, character, desc, rating, creator, id, card
 
             {/* Description + Cards */}
             <div className="p-3 pt-4 border-t border-neutral-700 w-full flex flex-col sm:flex-row gap-4 flex-1">
-                <div className="flex-1 min-w-0 max-w-55">
+                <div className="flex-1 min-w-0 md:max-w-55">
                     <Description desc={desc} />
                 </div>
                 <div className="flex-1 min-w-0">

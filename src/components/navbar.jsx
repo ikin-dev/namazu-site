@@ -12,15 +12,15 @@ function Navbar() {
 
     return (
         <nav className="w-full bg-neutral-800 text-neutral-100 font-semibold p-2">
-            <div className="max-w-7xl mx-auto flex justify-between items-center">
-                <div className='flex items-center hover:opacity-100 opacity-80 cursor-pointer'>
+            <div className="max-w-7xl px-5 mx-auto flex justify-between items-center">
+                <div className='flex items-center hover:opacity-100 opacity-80 cursor-pointer gap-2'>
                     <NamazuIcon className="w-12 h-12 fill-neutral-100 block" />
                     <a href="/"className="text-xl font-bold">Namazu</a>
                 </div>
 
                 <ul className="hidden sm:flex items-end gap-3">
                     <li>
-                        <div className='flex items-center opacity-50 p-2 gap-2 hover:bg-neutral-500 hover:opacity-100 transition-colors transition-200 rounded cursor-pointer'>
+                        <div className='flex items-center opacity-50 p-2 gap-2 hover:bg-neutral-500/50 hover:opacity-100 transition-colors transition-200 rounded cursor-pointer'>
                             <CardsIcon className='w-5 h-5 fill-neutral-200' />
                             <a href={GettingStartedUrl}>
                                 Decks
