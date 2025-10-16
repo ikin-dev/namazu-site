@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Deck from './Deck';
 import deckData from '../data/decks.json';
 
@@ -76,7 +76,7 @@ export default function DeckList() {
     }, [sortedDecks, currentPage]);
 
     // Reset to page 1 when filters change
-    useMemo(() => {
+    useEffect(() => {
         setCurrentPage(1);
     }, [search, characterFilter, sortBy]);
 
