@@ -27,7 +27,7 @@ export default function Header() {
                     </div>
 
                     <span className='text-sm opacity-40'>
-                        The database is updated 10 minutes after last discord change.
+                        Updated 10 minutes after last discord change
                     </span>
                 </div>
             </div>
