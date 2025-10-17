@@ -1,6 +1,7 @@
-import React from 'react'
 import CardIcon from '../assets/icons/cards.svg?react'
-export default function Header() {
+import LightIndicator from './LightIndicator'
+
+export default function Header({ lastUpdated }) {
     return (
         <div className="text-neutral-200 w-full p-5 
                  bg-neutral-800/20 border-b-1 border-0 border-neutral-700/25">
@@ -15,21 +16,8 @@ export default function Header() {
                     </span>
                 </div>
 
-                <div className='flex flex-col'>
-                    <div className="text-sm flex items-center gap-2 mt-2 relative">
-                        <span className="relative w-2 h-2 bg-green-300 rounded-full">
-                            {/* Green glow behind the dot */}
-                            <span className="absolute top-1/2 left-1/2 w-6 h-6 -translate-x-1/2 -translate-y-1/2 bg-green-300 rounded-full opacity-30 blur-xl"></span>
-                        </span>
-                        <span className="opacity-70">
-                            Last updated 16/10/2025 23:13
-                        </span>
-                    </div>
+                <LightIndicator lastUpdated={lastUpdated} />
 
-                    <span className='text-sm opacity-40'>
-                        Updated 10 minutes after last discord change
-                    </span>
-                </div>
             </div>
         </div>
     )

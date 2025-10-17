@@ -26,7 +26,7 @@ export default function HomePage() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-6 py-3 bg-[#5865F2] rounded-lg font-semibold text-white hover:bg-[#4752c4] transition-colors whitespace-nowrap"
                     >
-                        <DiscordIcon className="w-5 h-5 mt-1 fill-white" />
+                        <DiscordIcon className="w-5 h-5 mt-0.5 fill-white" />
                         Discord
                     </a>
                 </div>

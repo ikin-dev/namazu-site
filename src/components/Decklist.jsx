@@ -1,12 +1,23 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Deck from './Deck';
 
-export default function DeckList() {
-  const [decks, setDecks] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [etag, setEtag] = useState(null) // store last known ETag
+// Skeleton placeholder
+function DeckSkeleton() {
+  return (
+    <div className="w-full max-w-md h-64 bg-neutral-800 rounded-xl animate-pulse flex flex-col gap-3 p-4">
+      <div className="h-32 bg-neutral-700 rounded-lg" />
+      <div className="h-4 w-3/4 bg-neutral-700 rounded" />
+      <div className="h-3 w-1/2 bg-neutral-700 rounded" />
+      <div className="flex gap-2 mt-auto">
+        <div className="h-3 w-12 bg-neutral-700 rounded" />
+        <div className="h-3 w-12 bg-neutral-700 rounded" />
+      </div>
+    </div>
+  );
+}
 
+export default function Decklist({ decks, onImagesLoaded, isLoading  }) {
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   const [search, setSearch] = useState('');
   const [characterFilter, setCharacterFilter] = useState('');
   const [sortBy, setSortBy] = useState('newest');
@@ -19,39 +30,26 @@ export default function DeckList() {
     'Yukari','Yuyuko'
   ];
 
+  // preload images when decks are fetched
   useEffect(() => {
-    async function fetchDecks() {
-      try {
-        const headers = etag ? { 'If-None-Match': etag } : {}
-        const res = await fetch('https://www.namazu.app/decks.json', { headers })
-
-        if (res.status === 304) {
-          console.log('Using cached JSON')
-          return // browser already has it
+    if (!decks.length) return;
+    let loadedCount = 0;
+    decks.forEach(deck => {
+      const img = new Image();
+      img.src = deck.imageUrl;
+      img.onload = img.onerror = () => {
+        loadedCount += 1;
+        if (loadedCount === decks.length) {
+          setImagesLoaded(true);
+          onImagesLoaded?.();
         }
+      };
+    });
+  }, [decks, onImagesLoaded]);
 
-        if (!res.ok) throw new Error('Failed to fetch decks')
+  const loading = isLoading || !imagesLoaded;
 
-        const data = await res.json()
-        setDecks(data)
-
-        // store new ETag
-        const newEtag = res.headers.get('ETag')
-        if (newEtag) setEtag(newEtag)
-
-      } catch (err) {
-        console.error(err)
-        setError(err.message)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchDecks()
-  }, [etag])
-
-
-  // Filter decks based on search + character
+  // Filter decks
   const filteredDecks = useMemo(() => {
     return decks.filter(deck => {
       const matchesSearch =
@@ -70,16 +68,11 @@ export default function DeckList() {
     const sorted = [...filteredDecks];
     sorted.sort((a, b) => {
       switch (sortBy) {
-        case 'newest':
-          return new Date(b.createdDate) - new Date(a.createdDate);
-        case 'oldest':
-          return new Date(a.createdDate) - new Date(b.createdDate);
-        case 'upvotes':
-          return b.rating.upvotes - a.rating.upvotes;
-        case 'downvotes':
-          return b.rating.downvotes - a.rating.downvotes;
-        default:
-          return 0;
+        case 'newest': return new Date(b.createdDate) - new Date(a.createdDate);
+        case 'oldest': return new Date(a.createdDate) - new Date(b.createdDate);
+        case 'upvotes': return b.rating.upvotes - a.rating.upvotes;
+        case 'downvotes': return b.rating.downvotes - a.rating.downvotes;
+        default: return 0;
       }
     });
     return sorted;
@@ -92,45 +85,38 @@ export default function DeckList() {
     return sortedDecks.slice(startIndex, startIndex + DECKS_PER_PAGE);
   }, [sortedDecks, currentPage]);
 
-  // Reset page when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search, characterFilter, sortBy]);
-
-  if (loading) return <p className="text-white text-center">Loading decks...</p>;
-  if (error) return <p className="text-red-500 text-center">Error: {error}</p>;
-
-  
+  // Reset page on filters
+  useEffect(() => setCurrentPage(1), [search, characterFilter, sortBy]);
 
   return (
     <div className="w-full p-4 text-white">
       <div className="flex flex-col md:flex-row gap-6 max-w-6xl mx-auto justify-center">
-        {/* Left column: search + filters */}
+        {/* Left filters */}
         <div className="md:w-3xs flex flex-col gap-4">
           <div className="flex flex-col gap-3 p-5 bg-neutral-800/50 rounded-xl">
-            <span className='text-2xl text-neutral-200 font-semibold'>Search</span>
+            <span className="text-2xl text-neutral-200 font-semibold">Search</span>
             <input
               type="text"
               placeholder="Search by title or creator..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={e => setSearch(e.target.value)}
               className="flex-1 bg-neutral-800 border border-neutral-700 rounded-lg p-2 text-sm placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <span className='opacity-70'>Character</span>
+            <span className="opacity-70">Character</span>
             <select
               value={characterFilter}
-              onChange={(e) => setCharacterFilter(e.target.value)}
+              onChange={e => setCharacterFilter(e.target.value)}
               className="bg-neutral-800 border rounded-lg p-2 w-full border-r-8 border-transparent outline-1 outline-neutral-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">All Characters</option>
-              {characters.map((char) => (
+              {characters.map(char => (
                 <option key={char} value={char}>{char}</option>
               ))}
             </select>
-            <span className='opacity-70'>Sort by</span>
+            <span className="opacity-70">Sort by</span>
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
+              onChange={e => setSortBy(e.target.value)}
               className="bg-neutral-800 border rounded-lg p-2 w-full border-r-8 border-transparent outline-1 outline-neutral-700 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="newest">Newest</option>
@@ -141,12 +127,14 @@ export default function DeckList() {
           </div>
         </div>
 
-        {/* Right column: deck list */}
+        {/* Deck list */}
         <div className="md:w-2/3 flex flex-col items-center gap-6">
-          {paginatedDecks.map((deck) => (
-            <Deck key={deck.id} {...deck} />
-          ))}
-          {sortedDecks.length === 0 && (
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => <DeckSkeleton key={i} />)
+            : paginatedDecks.map(deck => <Deck key={deck.id} {...deck} />)
+          }
+
+          {(!loading && sortedDecks.length === 0) && (
             <span className="text-neutral-400">No decks found.</span>
           )}
 
@@ -160,11 +148,9 @@ export default function DeckList() {
               >
                 Previous
               </button>
-
               <span className="text-neutral-400 text-sm">
                 Page {currentPage} of {totalPages}
               </span>
-
               <button
                 onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                 disabled={currentPage === totalPages}
