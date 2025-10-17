@@ -35,6 +35,15 @@ export default function Deck({ title, character, desc, rating, creator, id, card
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     const isNew = diffDays <= 3;
 
+    let formattedDate
+    if (createdDate) {
+        const date = new Date(createdDate);
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const dd = String(date.getDate()).padStart(2, '0');
+        formattedDate = `${dd}-${mm}-${yyyy}`;
+    }
+
     return (
         <div
             className="
@@ -88,7 +97,7 @@ export default function Deck({ title, character, desc, rating, creator, id, card
             {/* Footer */}
             <div className="bg-neutral-900 opacity-50 rounded-b-lg flex justify-between p-1 w-full">
                 <span className="text-neutral-400 ml-1.5">
-                    Created {new Date(createdDate).toLocaleDateString()}
+                    Created {formattedDate}
                 </span>
                 <span className="text-neutral-400 font-semibold mr-1.5">Deck ID {id}</span>
             </div>

@@ -13,7 +13,7 @@ export default function LastUpdated({ lastUpdated }) {
         const dd = String(date.getDate()).padStart(2, '0');
         const hh = String(date.getHours()).padStart(2, '0');
         const min = String(date.getMinutes()).padStart(2, '0');
-        formattedDate = `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+        formattedDate = `Last updated ${dd}-${mm}-${yyyy} ${hh}:${min}`;
     }
 
     // if lastUpdated is passed (even null), override colors/text
