@@ -6,6 +6,8 @@ Namazu-site is the web application component for the Namazu Discord bot in the [
 
 The public database `decks.json` file is updated every 10 minutes after the previous change on Discord with backups saved to Cloudflare R2 storage.
 
+This project is hosted on Cloudflare Pages and updates to the live site are made through Cloudflare's CI/CD pipeline whenever a change to the master branch is made.
+
 ## Installation
 
 Clone the repository with Git
