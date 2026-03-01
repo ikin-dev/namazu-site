@@ -2,7 +2,7 @@
 ## Overview 
 <p align="left"><img src="src/assets/namazu.png" width="256"></p> 
 
-Namazu-site is the web application component for the Namazu Discord bot in the [#Hisouten Discord server](https://namazu.app/decks). The official website can be found at [https://namazu.app/](https://namazu.app). Namazu-site's Decks page shares the same functionality as the `&decks` Discord command and allows for easy sorting by `character`, `votes`, `date created`, etc. 
+Namazu-site is the web application component for the Namazu Discord bot in the [#Hisouten Discord server](https://discord.gg/hisouten). The official website can be found at [https://namazu.app/](https://namazu.app). Namazu-site's Decks page shares the same functionality as the `&decks` Discord command and allows for easy sorting by `character`, `votes`, `date created`, etc. 
 
 The public database `decks.json` file is updated every 10 minutes after the previous change on Discord with backups saved to Cloudflare R2 storage.
 
