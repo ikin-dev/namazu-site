@@ -36,13 +36,17 @@ npm run dev
 The default address is `http://localhost:5173/`
 
 ## Technologies used
-Namazu-site is created using the React framework with JavaScript. Namazu-site also uses Node.js, Vite, and Tailwind CSS for dependency installation, local testing, and styling. 
+Namazu-site is created using the React framework with HTML, CSS, and JavaScript. Namazu-site also uses Node.js, Vite, and Tailwind CSS for dependency installation, local testing, and styling. 
 
 
 ## Contributing
 
 This project was created by [ikin-dev](https://github.com/ikin-dev/). Pull requests are welcome! For major changes, please open an issue first
 to discuss what you would like to change.
+
+## Future plans
+
+A planned `Matchups` page is being worked on to accompany the new functionality recently added to the bot. Additionally a synced `&guidebook` command tab is also being planned! 
 
 ## Other
 Namazu-site does not store cookies and the data in `decks.json` is user-generated content.
