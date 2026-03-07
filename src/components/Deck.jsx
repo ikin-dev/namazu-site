@@ -4,6 +4,8 @@ import Rating from './Rating';
 import Title from './Title';
 import Description from './Description';
 import { CHARACTER_IMAGES } from './characterImages';
+import Icon from '@mdi/react';
+import { mdiSkull } from '@mdi/js';
 
 export default function Deck({ title, character, desc, rating, creator, id, cards, createdDate }) {
     const characters = {
@@ -29,12 +31,13 @@ export default function Deck({ title, character, desc, rating, creator, id, card
         'yuyuko': 'Yuyuko Saigyouji'
     };
 
+    // Badges:
+    // Calculate if deck is new
     const parsedCreatedDate = new Date(createdDate)
     const now = new Date();
     const diffTime = now - parsedCreatedDate;
     const diffDays = diffTime / (1000 * 60 * 60 * 24);
     const isNew = diffDays <= 3;
-
     let formattedDate
     if (createdDate) {
         const date = new Date(createdDate);
@@ -43,6 +46,12 @@ export default function Deck({ title, character, desc, rating, creator, id, card
         const dd = String(date.getDate()).padStart(2, '0');
         formattedDate = `${dd}-${mm}-${yyyy}`;
     }
+
+    // Calculate if deck has negative rating
+    const { upvotes, downvotes } = rating;
+    let isNegative = false;
+    if (upvotes == 0 && downvotes != 0) 
+        isNegative = true;
 
     return (
         <div
@@ -56,7 +65,7 @@ export default function Deck({ title, character, desc, rating, creator, id, card
             "
         >
             {/* Header */}
-            <div className="flex flex-col">
+            <div className="flex flex-col overflow-visible">
                 <div className="relative p-3 h-8 w-full flex flex-row rounded-t-lg justify-between items-center gap-4 text-white border-neutral-700 bg-">
                     <div
                         className="absolute inset-0 opacity-25 group-hover:opacity-50 duration-300 rounded-t-lg"
@@ -67,10 +76,28 @@ export default function Deck({ title, character, desc, rating, creator, id, card
                             backgroundRepeat: 'no-repeat'
                         }}
                     />
+                    {/* Name */}
                     <span className="relative z-10 text-neutral-50 drop-shadow-lg opacity-50 duration-300 group-hover:opacity-100 ">{characters[character.toLowerCase()] || character}</span>
-                    {isNew && (
-                        <span className='bg-red-500 rounded-lg px-1 py-0.5 mt-1 font-bold'>New</span>
-                    )}
+                    {/* Badges */}
+                    <div className="flex flex-row items-center gap-2 relative z-10">
+                        {/* Negative rating */}
+                        {isNegative && (
+                            <div className='has-tooltip relative z-10'>
+                                <span
+                                    className="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 bg-neutral-900 text-neutral-200 text-xs
+                                    px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20"
+                                >
+                                    Negative rating
+                                </span>
+
+                                <Icon path={mdiSkull} size={0.8} className="text-neutral-400" />
+                            </div>
+                        )}
+                        {/* New badge */}
+                        {isNew && (
+                            <span className='bg-red-500 rounded-lg px-1 py-0.5 mt-1 font-bold'>New</span>
+                        )}
+                    </div>
                 </div>
 
                 <div className="flex flex-row items-start justify-between p-3 gap-3">
@@ -101,6 +128,6 @@ export default function Deck({ title, character, desc, rating, creator, id, card
                 </span>
                 <span className="text-neutral-400 font-semibold mr-1.5">Deck ID {id}</span>
             </div>
-        </div>
+        </div >
     );
 }
