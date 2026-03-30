@@ -65,7 +65,7 @@ export default function Deck({ title, character, desc, rating, creator, id, card
             "
         >
             {/* Header */}
-            <div className="flex flex-col overflow-visible">
+            <div className="flex flex-col">
                 <div className="relative p-3 h-8 w-full flex flex-row rounded-t-lg justify-between items-center gap-4 text-white border-neutral-700 bg-">
                     <div
                         className="absolute inset-0 opacity-25 group-hover:opacity-50 duration-300 rounded-t-lg"
@@ -79,12 +79,12 @@ export default function Deck({ title, character, desc, rating, creator, id, card
                     {/* Name */}
                     <span className="relative z-10 text-neutral-50 drop-shadow-lg opacity-50 duration-300 group-hover:opacity-100 ">{characters[character.toLowerCase()] || character}</span>
                     {/* Badges */}
-                    <div className="flex flex-row items-center gap-2 relative z-10">
+                    <div className="flex flex-row items-center gap-2 relative z-10 ">
                         {/* Negative rating */}
                         {isNegative && (
                             <div className='has-tooltip relative z-10'>
                                 <span
-                                    className="absolute bottom-full left-1/2 mb-1 -translate-x-1/2 bg-neutral-900 text-neutral-200 text-xs
+                                    className="hidden lg:block absolute bottom-full left-1/2 mb-1 -translate-x-1/2 bg-neutral-900 text-neutral-200 text-xs
                                     px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20"
                                 >
                                     Negative rating
